@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Berita Debug</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      #status {
+        padding: 10px;
+        margin: 10px 0;
+        background: #f0f0f0;
+      }
+      .news-card {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 8px;
+      }
+      .error {
+        background: #ffdddd;
+      }
+      .success {
+        background: #ddffdd;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🧪 Test Berita Debug</h1>
+    <div id="status">Loading...</div>
+    <div id="results"></div>
+
+    <script>
+      console.log("🔍 Debug script starting...");
+      const statusDiv = document.getElementById("status");
+      const resultsDiv = document.getElementById("results");
+
+      async function testAPI() {
+        try {
+          statusDiv.textContent = "⏳ Fetching from /berita/api...";
+          statusDiv.className = "";
+
+          const response = await fetch("/berita/api?country=id");
+          console.log("Response:", response);
+
+          const data = await response.json();
+          console.log("Data:", data);
+
+          statusDiv.textContent = `✅ Success! Got ${
+            data.data?.length || 0
+          } articles`;
+          statusDiv.className = "success";
+
+          if (data.data && data.data.length > 0) {
+            resultsDiv.innerHTML = data.data
+              .map(
+                (article) => `
+                        <div class="news-card">
+                            <h3>${article.title}</h3>
+                            <p><strong>Source:</strong> ${article.source}</p>
+                            <p>${article.description}</p>
+                            <p><small>${article.published_at}</small></p>
+                        </div>
+                    `
+              )
+              .join("");
+          } else {
+            resultsDiv.innerHTML = "<p>No articles found</p>";
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          statusDiv.textContent = `❌ Error: ${error.message}`;
+          statusDiv.className = "error";
+          resultsDiv.innerHTML = `<pre>${error.stack}</pre>`;
+        }
+      }
+
+      // Run test immediately
+      testAPI();
+    </script>
+  </body>
+</html>

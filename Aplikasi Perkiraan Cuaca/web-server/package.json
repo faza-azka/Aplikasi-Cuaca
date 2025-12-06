@@ -1,0 +1,32 @@
+{
+  "name": "web-server",
+  "version": "1.0.0",
+  "description": "Aplikasi Cek Cuaca & Berita - Node.js Express App",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "weather",
+    "news",
+    "express",
+    "nodejs"
+  ],
+  "author": "Faza Azka M.",
+  "license": "ISC",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "hbs": "^4.2.0",
+    "postman-request": "^2.88.1-postman.46"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

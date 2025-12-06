@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    {{>head title=judul}}
+<body>
+    <div class="main-content">
+        {{>header}}
+        
+        <div class="news-container">
+            <h1>📰 Berita Terkini</h1>
+            <p class="news-intro">Dapatkan informasi berita terbaru dari seluruh dunia</p>
+
+            <div class="news-filters">
+                <form id="newsFilterForm">
+                    <select name="category" id="categorySelect">
+                        <option value="">Semua Kategori</option>
+                        <option value="general">Umum</option>
+                        <option value="business">Bisnis</option>
+                        <option value="technology">Teknologi</option>
+                        <option value="sports">Olahraga</option>
+                        <option value="health">Kesehatan</option>
+                    </select>
+                    <select name="country" id="countrySelect">
+                        <option value="id">Indonesia</option>
+                        <option value="us">Amerika Serikat</option>
+                        <option value="gb">Inggris</option>
+                        <option value="jp">Jepang</option>
+                    </select>
+                    <button type="submit">Filter Berita</button>
+                </form>
+            </div>
+
+            <div id="loadingMessage" class="loading-message">
+                <p>🔄 Memuat berita...</p>
+            </div>
+
+            <div id="newsResults" class="news-results">
+                <!-- Berita akan dimuat di sini oleh JavaScript -->
+            </div>
+
+            <div id="errorMessage" class="error-message" style="display: none;">
+                <p>❌ Gagal memuat berita. Silakan coba lagi.</p>
+            </div>
+        </div>
+    </div>
+    
+    {{>footer}}
+    <script src="/js/berita.js"></script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+    {{>head title=judul}}
+<body>
+    <div class="main-content">
+        {{>header}}
+        
+        <div class="help-container">
+            <h1>❓ Bantuan & FAQ</h1>
+            <p class="help-intro">Temukan jawaban untuk pertanyaan yang sering diajukan tentang aplikasi Cek Cuaca.</p>
+
+            <div class="faq-section">
+                <div class="faq-item">
+                    <h3>a. Halaman ini digunakan untuk apa?</h3>
+                    <p><strong>Jelaskan:</strong> Halaman ini berisi Frequently Asked Questions (FAQ) yang memberikan informasi tentang penggunaan aplikasi, penjelasan teknis, dan solusi untuk masalah yang mungkin dihadapi pengguna. Tujuannya adalah membantu pengguna memahami fitur-fitur aplikasi dan memecahkan masalah secara mandiri.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>b. Apa itu API?</h3>
+                    <p><strong>Jelaskan:</strong> API (Application Programming Interface) adalah sekumpulan aturan dan protokol yang memungkinkan aplikasi yang berbeda untuk berkomunikasi satu sama lain. API berfungsi sebagai perantara yang memungkinkan developer mengakses fitur atau data dari aplikasi lain tanpa perlu mengetahui detail implementasinya.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>c. API apa yang digunakan dalam aplikasi ini?</h3>
+                    <p><strong>Jelaskan:</strong> Aplikasi ini menggunakan tiga API utama:</p>
+                    <ul>
+                        <li><strong>Weatherstack API</strong> - Untuk mendapatkan data cuaca real-time berdasarkan koordinat geografis</li>
+                        <li><strong>Mapbox Geocoding API</strong> - Untuk mengonversi nama lokasi menjadi koordinat latitude dan longitude</li>
+                        <li><strong>Mediastack API</strong> - Untuk menampilkan berita terkini</li>
+                    </ul>
+                    <p>API-API ini bekerja bersama untuk memberikan pengalaman yang lengkap kepada pengguna.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>d. Arsitektur Yang digunakan adalah RESTful API</h3>
+                    <p><strong>Jelaskan:</strong> Aplikasi ini menggunakan arsitektur <strong>RESTful API</strong>. REST (Representational State Transfer) adalah arsitektur yang menggunakan protokol HTTP untuk komunikasi antara client dan server.</p>
+                    
+                    <div class="architecture-image">
+                        <h4>🏗️ Diagram Arsitektur RESTful API Aplikasi Cek Cuaca</h4>
+                        
+                        <!-- GAMBAR DIAGRAM - SUDAH DISESUAIKAN DENGAN .png -->
+                        <div class="diagram-container">
+                            <img src="/img/diagram-arsitektur.png" 
+                                 alt="Diagram Arsitektur RESTful API" 
+                                 class="architecture-img"
+                                 onerror="handleImageError(this)">
+                            <p class="image-caption">Gambar 1: Diagram Arsitektur RESTful API Aplikasi Cek Cuaca</p>
+                        </div>
+
+                        <!-- Fallback jika gambar belum ada -->
+                        <div id="imageFallback" class="image-fallback" style="display: none;">
+                            <div class="fallback-message">
+                                <h5>📁 Diagram Arsitektur</h5>
+                                <p><strong>Struktur Arsitektur Aplikasi:</strong></p>
+                                <div class="architecture-text">
+                                    <pre>
+┌─────────────────┐    ┌──────────────────┐    ┌──────────────────┐
+│   CLIENT        │    │   EXPRESS.JS     │    │   EXTERNAL APIs  │
+│   (Browser)     │────│   SERVER         │────│                  │
+│                 │    │                  │    │ ┌──────────────┐ │
+│ - HTML/CSS/JS   │    │ - Routing        │    │ │ Weatherstack │ │
+│ - Fetch API     │    │ - Middleware     │    │ │   API        │ │
+│ - Handlebars    │    │ - Controllers    │    │ └──────────────┘ │
+└─────────────────┘    └──────────────────┘    │ ┌──────────────┐ │
+                                               │ │ Mapbox       │ │
+                                               │ │ Geocoding    │ │
+                                               │ └──────────────┘ │
+                                               │ ┌──────────────┐ │
+                                               │ │ Mediastack   │ │
+                                               │ │   API        │ │
+                                               │ └──────────────┘ │
+                                               └──────────────────┘
+
+✅ RESTful Endpoints:
+GET  /                 → Halaman utama
+GET  /infocuaca        → Data cuaca (Weatherstack + Mapbox)
+GET  /berita           → Halaman berita  
+GET  /berita/api       → Data berita (Mediastack)
+GET  /tentang          → Halaman tentang
+GET  /bantuan          → Halaman bantuan
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p><strong>Keunggulan RESTful API:</strong></p>
+                    <ul>
+                        <li>Menggunakan metode HTTP standar (GET, POST, PUT, DELETE)</li>
+                        <li>Stateless - setiap request independen</li>
+                        <li>Struktur URL yang terorganisir dan mudah dipahami</li>
+                        <li>Format data umum (JSON/XML)</li>
+                        <li>Scalable dan performa tinggi</li>
+                    </ul>
+
+                    <div class="arch-features">
+                        <h5>✅ Karakteristik RESTful API yang Diterapkan:</h5>
+                        <div class="features-grid">
+                            <div class="feature-item">
+                                <strong>Stateless</strong>
+                                <p>Setiap request independen, tidak ada session management</p>
+                            </div>
+                            <div class="feature-item">
+                                <strong>Resource-Based</strong>
+                                <p>URL mewakili resources (/berita, /infoCuaca, /tentang)</p>
+                            </div>
+                            <div class="feature-item">
+                                <strong>HTTP Methods</strong>
+                                <p>Menggunakan metode HTTP standar (GET, POST, PUT, DELETE)</p>
+                            </div>
+                            <div class="feature-item">
+                                <strong>JSON Format</strong>
+                                <p>Response dalam format JSON yang seragam dan mudah diparsing</p>
+                            </div>
+                            <div class="feature-item">
+                                <strong>Cacheable</strong>
+                                <p>Response dapat di-cache oleh client untuk optimasi performa</p>
+                            </div>
+                            <div class="feature-item">
+                                <strong>Layered System</strong>
+                                <p>Architecture berlapis (client-server-database-external APIs)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="technical-info">
+                <h3>🔧 Informasi Teknis</h3>
+                <div class="tech-details">
+                    <p><strong>Base URL API Cuaca:</strong> http://api.weatherstack.com/current</p>
+                    <p><strong>Base URL API Geocoding:</strong> https://api.mapbox.com/geocoding/v5/mapbox.places/</p>
+                    <p><strong>Base URL API Berita:</strong> http://api.mediastack.com/v1/news</p>
+                    <p><strong>Format Response:</strong> JSON</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {{>footer}}
+
+    <style>
+        /* Styles untuk diagram section */
+        .diagram-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .architecture-img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .image-caption {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .image-fallback {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .fallback-message h5 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .architecture-text {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+
+        .architecture-text pre {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            color: #333;
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        /* Existing styles tetap sama */
+        .help-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .help-intro {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .faq-section {
+            margin-bottom: 40px;
+        }
+
+        .faq-item {
+            background: #f8f9fa;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #007bff;
+        }
+
+        .faq-item h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .faq-item p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .faq-item ul {
+            color: #555;
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .faq-item li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .arch-features {
+            margin-top: 25px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .feature-item strong {
+            color: #007bff;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .feature-item p {
+            color: #666;
+            font-size: 0.9em;
+            margin: 0;
+        }
+
+        .technical-info {
+            background: #e7f3ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .technical-info h3 {
+            color: #0056b3;
+            margin-bottom: 15px;
+        }
+
+        .tech-details {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .tech-details p {
+            margin: 8px 0;
+            font-family: monospace;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+
+    <script>
+        function handleImageError(img) {
+            console.log('Gambar diagram tidak ditemukan:', img.src);
+            img.style.display = 'none';
+            document.getElementById('imageFallback').style.display = 'block';
+        }
+
+        // Check if image exists on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const img = document.querySelector('.architecture-img');
+            const fallback = document.getElementById('imageFallback');
+            
+            if (img) {
+                console.log('Memeriksa gambar diagram...');
+                
+                // Check if image loaded successfully
+                if (img.complete) {
+                    if (img.naturalHeight === 0) {
+                        console.log('Gambar tidak ditemukan, menampilkan fallback');
+                        img.style.display = 'none';
+                        fallback.style.display = 'block';
+                    } else {
+                        console.log('Gambar diagram berhasil dimuat');
+                        fallback.style.display = 'none';
+                    }
+                }
+                
+                img.onload = function() {
+                    console.log('Gambar diagram berhasil dimuat');
+                    fallback.style.display = 'none';
+                };
+                
+                img.onerror = function() {
+                    console.log('Gambar diagram error, menampilkan fallback');
+                    this.style.display = 'none';
+                    fallback.style.display = 'block';
+                };
+            }
+        });
+    </script>
+</body>
+</html>
